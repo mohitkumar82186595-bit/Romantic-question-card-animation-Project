@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Ek Sawaal Poochu?</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600;700&family=Playfair+Display:ital,wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 50% 45%, #fff5f6 0%, #f9e9ec 42%, #d9cbce 100%);
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Main phone screen */
+.phone {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Soft background glow */
+.phone::before {
+    content: "";
+    position: absolute;
+    width: 450px;
+    height: 450px;
+    border-radius: 50%;
+    background: rgba(255, 178, 193, .16);
+    filter: blur(70px);
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* =========================
+   FLOATING HEARTS
+========================= */
+
+.hearts {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.heart {
+    position: absolute;
+    color: #ed7187;
+    font-size: 17px;
+    opacity: .8;
+    animation: floatHeart linear infinite;
+    filter: drop-shadow(0 2px 4px rgba(213, 88, 110, .15));
+}
+
+.heart::before {
+    content: "♥";
+}
+
+@keyframes floatHeart {
+    0% {
+        transform: translateY(110vh) rotate(-15deg) scale(.75);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: .8;
+    }
+
+    50% {
+        transform: translateY(50vh) rotate(15deg) scale(1);
+    }
+
+    90% {
+        opacity: .75;
+    }
+
+    100% {
+        transform: translateY(-15vh) rotate(-20deg) scale(.8);
+        opacity: 0;
+    }
+}
+
+/* Additional falling hearts */
+.falling-heart {
+    position: absolute;
+    color: #ef788c;
+    pointer-events: none;
+    animation: falling linear forwards;
+}
+
+@keyframes falling {
+    0% {
+        transform: translateY(-30px) rotate(0deg);
+        opacity: 0;
+    }
+
+    15% {
+        opacity: .9;
+    }
+
+    100% {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* =========================
+   CARD
+========================= */
+
+.card {
+    position: relative;
+    width: min(84vw, 360px);
+    min-height: 370px;
+
+    padding: 42px 25px 30px;
+
+    background: rgba(255, 250, 250, .91);
+    border-radius: 18px;
+
+    border: 1px solid rgba(255, 255, 255, .85);
+
+    box-shadow:
+        0 22px 50px rgba(124, 91, 97, .15),
+        0 4px 14px rgba(255, 132, 153, .12),
+        inset 0 0 25px rgba(255, 255, 255, .7);
+
+    text-align: center;
+
+    z-index: 5;
+
+    animation: cardIn .9s cubic-bezier(.2,.8,.2,1);
+}
+
+@keyframes cardIn {
+    from {
+        opacity: 0;
+        transform: translateY(25px) scale(.94);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* tiny top dots */
+.dots {
+    display: flex;
+    justify-content: center;
+    gap: 7px;
+    margin-bottom: 21px;
+}
+
+.dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #f4d5da;
+}
+
+.dot.active {
+    background: #eb7186;
+}
+
+/* =========================
+   QUESTION
+========================= */
+
+.question-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 21px;
+    font-weight: 600;
+    color: #6e3d47;
+    margin-bottom: 13px;
+}
+
+.question-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    font-style: italic;
+    line-height: 1.65;
+    color: #805861;
+    min-height: 48px;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.buttons {
+    margin-top: 25px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+.btn {
+    border: 1px solid #f0c8cf;
+    background: rgba(255,255,255,.8);
+    color: #9a5c69;
+
+    padding: 9px 20px;
+    min-width: 82px;
+
+    border-radius: 30px;
+
+    font-family: 'Poppins', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition:
+        transform .25s ease,
+        background .25s ease,
+        box-shadow .25s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    background: #fff;
+    box-shadow: 0 7px 18px rgba(218, 111, 132, .15);
+}
+
+.btn:active {
+    transform: scale(.94);
+}
+
+.btn.primary {
+    background: linear-gradient(135deg, #f07a8e, #ee637d);
+    color: white;
+    border: none;
+
+    box-shadow:
+        0 8px 20px rgba(238, 102, 127, .22);
+}
+
+.btn.primary:hover {
+    background: linear-gradient(135deg, #ed6d83, #e95673);
+}
+
+/* =========================
+   FINAL SCREEN
+========================= */
+
+.final-title {
+    font-family: 'Dancing Script', cursive;
+    color: #d9687d;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.final-main {
+    font-family: 'Dancing Script', cursive;
+    color: #d95f76;
+    font-size: 31px;
+    font-weight: 700;
+    margin-top: 20px;
+    line-height: 1.2;
+}
+
+.arrow {
+    display: inline-block;
+    font-size: 28px;
+    color: #e87588;
+    margin-left: 4px;
+    animation: arrowMove 1.2s ease-in-out infinite;
+}
+
+@keyframes arrowMove {
+    0%,100% {
+        transform: translateX(0) rotate(10deg);
+    }
+
+    50% {
+        transform: translateX(8px) rotate(18deg);
+    }
+}
+
+.small-text {
+    margin-top: 18px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 10px;
+    color: #a67a82;
+}
+
+.final-message {
+    margin-top: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 10px;
+    color: #9c747b;
+    font-style: italic;
+}
+
+/* =========================
+   PROGRESS
+========================= */
+
+.progress {
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    display: flex;
+    gap: 5px;
+}
+
+.progress span {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(220, 113, 132, .25);
+}
+
+.progress span.active {
+    background: #e66d83;
+}
+
+/* =========================
+   TRANSITIONS
+========================= */
+
+.question-screen {
+    animation: questionIn .65s ease both;
+}
+
+@keyframes questionIn {
+    from {
+        opacity: 0;
+        transform: translateX(35px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.question-screen.exit {
+    animation: questionOut .4s ease both;
+}
+
+@keyframes questionOut {
+    to {
+        opacity: 0;
+        transform: translateX(-35px);
+    }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 450px) {
+
+    .card {
+        width: 84vw;
+        min-height: 355px;
+        padding: 40px 20px 27px;
+    }
+
+    .question-title {
+        font-size: 20px;
+    }
+
+    .question-text {
+        font-size: 12px;
+    }
+
+    .final-main {
+        font-size: 29px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="phone">
+
+    <!-- Floating background hearts -->
+    <div class="hearts" id="hearts"></div>
+
+    <!-- Main card -->
+    <div class="card" id="card">
+
+        <div class="question-screen" id="questionScreen">
+
+            <div class="dots" id="dots">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+
+            <div class="question-title" id="title">
+                Ek sawaal poochu?
+            </div>
+
+            <div class="question-text" id="question">
+                kya tumhe lagta hai kuch log kismat se milte hain?
+            </div>
+
+            <div class="buttons" id="buttons"></div>
+
+        </div>
+
+        <div class="progress" id="progress"></div>
+
+    </div>
+
+</div>
+
+<script>
+
+/* ==========================================
+   QUESTIONS
+========================================== */
+
+const questions = [
+
+    {
+        title: "Ek sawaal poochu?",
+        text: "kya tumhe lagta hai kuch log kismat se milte hain?",
+        buttons: [
+            {
+                text: "Shayad 👀",
+                next: 1
+            },
+            {
+                text: "Ho sakta hai",
+                next: 1
+            }
+        ]
+    },
+
+    {
+        title: "Dusra sawaal.",
+        text: "in kuch mahino mein tumhe bhi kuch alag laga?",
+        buttons: [
+            {
+                text: "Bolo na..",
+                next: 2
+            },
+            {
+                text: "Haan, thoda",
+                next: 2
+            }
+        ]
+    },
+
+    {
+        title: "Sach batao.",
+        text: "kabhi phone dekh ke bewajah smile aayi hai?",
+        buttons: [
+            {
+                text: "Nahi 🙈",
+                next: 3
+            },
+            {
+                text: "Guilty 😌",
+                next: 3
+            }
+        ]
+    },
+
+    {
+        title: "Ek aakhri baat, phir main asli baat kahunga...",
+        text: "ready ho?",
+        buttons: [
+            {
+                text: "Bolo",
+                next: 4
+            }
+        ]
+    }
+
+];
+
+
+/* ==========================================
+   ELEMENTS
+========================================== */
+
+const title = document.getElementById("title");
+const question = document.getElementById("question");
+const buttons = document.getElementById("buttons");
+const dots = document.getElementById("dots");
+const progress = document.getElementById("progress");
+const questionScreen = document.getElementById("questionScreen");
+
+
+/* ==========================================
+   CURRENT QUESTION
+========================================== */
+
+let current = 0;
+
+
+/* ==========================================
+   LOAD QUESTION
+========================================== */
+
+function loadQuestion(index) {
+
+    questionScreen.classList.remove("question-screen");
+
+    void questionScreen.offsetWidth;
+
+    questionScreen.classList.add("question-screen");
+
+    current = index;
+
+    const data = questions[index];
+
+    title.textContent = data.title;
+    question.textContent = data.text;
+
+    buttons.innerHTML = "";
+
+    data.buttons.forEach(item => {
+
+        const btn = document.createElement("button");
+
+        btn.className = "btn";
+
+        if (
+            (index === 0 && item.text.includes("Shayad")) ||
+            (index === 1 && item.text.includes("Haan")) ||
+            (index === 2 && item.text.includes("Guilty")) ||
+            index === 3
+        ) {
+            btn.classList.add("primary");
+        }
+
+        btn.textContent = item.text;
+
+        btn.addEventListener("click", () => {
+
+            createBurst();
+
+            setTimeout(() => {
+
+                if (item.next === 4) {
+                    showFinal();
+                } else {
+                    loadQuestion(item.next);
+                }
+
+            }, 350);
+
+        });
+
+        buttons.appendChild(btn);
+    });
+
+    updateDots(index);
+
+    updateProgress(index);
+}
+
+
+/* ==========================================
+   DOTS
+========================================== */
+
+function updateDots(index) {
+
+    dots.innerHTML = "";
+
+    const totalDots = index >= 3 ? 3 : 3;
+
+    for (let i = 0; i < totalDots; i++) {
+
+        const dot = document.createElement("span");
+
+        dot.className = "dot";
+
+        if (i === index % 3) {
+            dot.classList.add("active");
+        }
+
+        dots.appendChild(dot);
+    }
+}
+
+
+/* ==========================================
+   PROGRESS
+========================================== */
+
+function updateProgress(index) {
+
+    progress.innerHTML = "";
+
+    for (let i = 0; i < 4; i++) {
+
+        const p = document.createElement("span");
+
+        if (i <= index) {
+            p.classList.add("active");
+        }
+
+        progress.appendChild(p);
+    }
+}
+
+
+/* ==========================================
+   FINAL SCREEN
+========================================== */
+
+function showFinal() {
+
+    questionScreen.classList.remove("question-screen");
+
+    void questionScreen.offsetWidth;
+
+    questionScreen.classList.add("question-screen");
+
+    title.innerHTML = `
+        <div class="final-title">
+            Tumhare liye,
+        </div>
+    `;
+
+    question.innerHTML = `
+        <div style="
+            font-family:'Playfair Display',serif;
+            font-style:italic;
+            line-height:1.7;
+        ">
+            Aur main is story ko yahin khatam nahi<br>
+            karna chahta.
+        </div>
+    `;
+
+    buttons.innerHTML = `
+        <div class="final-main">
+            Mere banoge?
+            <span class="arrow">↪</span>
+        </div>
+
+        <button class="btn primary" id="yesBtn"
+            style="margin-top:22px;">
+            Haan, banungi ♡
+        </button>
+
+        <button class="btn" id="noBtn"
+            style="margin-top:8px;">
+            Nahi
+        </button>
+
+        <div class="small-text">
+            Nice try 😌
+        </div>
+    `;
+
+    updateProgress(4);
+
+    document.getElementById("yesBtn").addEventListener("click", yesClicked);
+
+    document.getElementById("noBtn").addEventListener("click", noClicked);
+
+    bigHeartBurst();
+}
+
+
+/* ==========================================
+   YES
+========================================== */
+
+function yesClicked() {
+
+    buttons.innerHTML = `
+        <div style="
+            font-family:'Dancing Script',cursive;
+            font-size:27px;
+            color:#d95f76;
+            margin-top:18px;
+        ">
+            Mujhe pata tha ❤️
+        </div>
+
+        <div style="
+            margin-top:12px;
+            font-size:11px;
+            color:#9c747b;
+        ">
+            Ab bas kabhi chhodna mat...
+        </div>
+    `;
+
+    bigHeartBurst();
+}
+
+
+/* ==========================================
+   NO
+========================================== */
+
+function noClicked() {
+
+    const no = document.getElementById("noBtn");
+
+    if (!no) return;
+
+    no.textContent = "Ab bas bhi karo 😭";
+
+    no.style.transform =
+        `translate(${Math.random() * 100 - 50}px,
+                   ${Math.random() * 60 - 30}px)`;
+
+    setTimeout(() => {
+
+        no.style.transform = "";
+
+    }, 450);
+}
+
+
+/* ==========================================
+   INITIAL HEARTS
+========================================== */
+
+function createHearts() {
+
+    const container = document.getElementById("hearts");
+
+    for (let i = 0; i < 30; i++) {
+
+        const heart = document.createElement("div");
+
+        heart.className = "heart";
+
+        heart.style.left =
+            Math.random() * 100 + "%";
+
+        heart.style.fontSize =
+            (8 + Math.random() * 12) + "px";
+
+        heart.style.animationDuration =
+            (7 + Math.random() * 10) + "s";
+
+        heart.style.animationDelay =
+            (-Math.random() * 12) + "s";
+
+        heart.style.opacity =
+            (.3 + Math.random() * .5);
+
+        container.appendChild(heart);
+    }
+}
+
+createHearts();
+
+
+/* ==========================================
+   RANDOM FALLING HEARTS
+========================================== */
+
+function createFallingHeart() {
+
+    const heart = document.createElement("div");
+
+    heart.className = "falling-heart";
+
+    heart.textContent =
+        Math.random() > .35 ? "♥" : "❤";
+
+    heart.style.left =
+        Math.random() * 100 + "%";
+
+    heart.style.top = "-20px";
+
+    heart.style.fontSize =
+        (8 + Math.random() * 12) + "px";
+
+    heart.style.animationDuration =
+        (5 + Math.random() * 7) + "s";
+
+    heart.style.opacity =
+        (.35 + Math.random() * .55);
+
+    document.querySelector(".phone").appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, 13000);
+}
+
+setInterval(createFallingHeart, 700);
+
+
+/* ==========================================
+   SMALL HEART BURST
+========================================== */
+
+function createBurst() {
+
+    const rect =
+        document.getElementById("card").getBoundingClientRect();
+
+    for (let i = 0; i < 8; i++) {
+
+        const heart = document.createElement("div");
+
+        heart.textContent = "♥";
+
+        heart.style.position = "fixed";
+        heart.style.left =
+            rect.left + rect.width / 2 + "px";
+
+        heart.style.top =
+            rect.top + rect.height / 2 + "px";
+
+        heart.style.color = "#ee7085";
+
+        heart.style.fontSize = "13px";
+
+        heart.style.pointerEvents = "none";
+
+        heart.style.zIndex = "20";
+
+        const x =
+            (Math.random() - .5) * 180;
+
+        const y =
+            (Math.random() - .5) * 160;
+
+        heart.animate(
+            [
+                {
+                    transform: "translate(0,0) scale(.5)",
+                    opacity: 1
+                },
+                {
+                    transform:
+                        `translate(${x}px,${y}px) scale(1.2)`,
+                    opacity: 0
+                }
+            ],
+            {
+                duration: 700,
+                easing: "ease-out"
+            }
+        );
+
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 750);
+    }
+}
+
+
+/* ==========================================
+   BIG HEART BURST
+========================================== */
+
+function bigHeartBurst() {
+
+    for (let i = 0; i < 35; i++) {
+
+        setTimeout(() => {
+
+            const heart = document.createElement("div");
+
+            heart.textContent =
+                Math.random() > .5 ? "♥" : "❤";
+
+            heart.style.position = "fixed";
+
+            heart.style.left =
+                "50%";
+
+            heart.style.top =
+                "50%";
+
+            heart.style.color =
+                "#ef7086";
+
+            heart.style.fontSize =
+                (10 + Math.random() * 17) + "px";
+
+            heart.style.zIndex = "50";
+
+            heart.style.pointerEvents = "none";
+
+            const angle =
+                Math.random() * Math.PI * 2;
+
+            const distance =
+                100 + Math.random() * 350;
+
+            const x =
+                Math.cos(angle) * distance;
+
+            const y =
+                Math.sin(angle) * distance;
+
+            heart.animate(
+                [
+                    {
+                        transform:
+                            "translate(-50%,-50%) scale(.2)",
+                        opacity: 0
+                    },
+
+                    {
+                        transform:
+                            "translate(-50%,-50%) scale(1)",
+                        opacity: 1,
+                        offset: .15
+                    },
+
+                    {
+                        transform:
+                            `translate(
+                                calc(-50% + ${x}px),
+                                calc(-50% + ${y}px)
+                            ) scale(.7)`,
+                        opacity: 0
+                    }
+                ],
+                {
+                    duration: 1600,
+                    easing: "cubic-bezier(.2,.8,.2,1)"
+                }
+            );
+
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 1700);
+
+        }, i * 35);
+    }
+}
+
+
+/* ==========================================
+   START
+========================================== */
+
+loadQuestion(0);
+
+</script>
+
+</body>
+</html>
